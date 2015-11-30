@@ -1,9 +1,8 @@
-source "http://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'spree', '~> 3.0.0.rc'
-gem 'spree_auth_devise', :git => 'git://github.com/spree/spree_auth_devise', :branch => '3-0-stable'
-
-gemspec
+gem 'spree', github: 'spree/spree', branch: '3-0-stable'
+# Provides basic authentication functionality for testing parts of your engine
+gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '3-0-stable'
 
 group :test do
   gem 'sass-rails'
@@ -12,3 +11,4 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gemspec
