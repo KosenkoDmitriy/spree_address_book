@@ -13,7 +13,7 @@ module Spree::AddressesHelper
   end
 
   def address_state(form, country, address_id = "b")
-    country ||= Spree::Country.find(Spree::Config[:default_country_id])
+    country ||= Spree::Country.find(Spree::Config[:default_country_id]) rescue Spree::Country.first
     have_states = !country.states.empty?
     state_elements = [
       form.collection_select(:state_id, country.states.order(:name),
