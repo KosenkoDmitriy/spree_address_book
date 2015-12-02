@@ -85,7 +85,7 @@ RSpec.configure do |config|
 
   # Before each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
 
-  config.before(:each) do |example|
+  config.before :each do |example|
     if example.metadata[:js]
       DatabaseCleaner.strategy = :truncation, {
           :except => [
@@ -102,7 +102,7 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each) do
+  config.before :each do
     DatabaseCleaner.start
     reset_spree_preferences
 

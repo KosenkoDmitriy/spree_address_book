@@ -10,7 +10,6 @@ shared_context "checkout with product" do
       config.alternative_billing_phone = false
       config.alternative_shipping_phone = false
     end
-
     visit spree.root_path
     click_link 'Ruby on Rails Mug'
     click_button 'add-to-cart-button'
@@ -20,13 +19,13 @@ shared_context "checkout with product" do
 
   private
   def should_have_address_fields
-    page.should have_field("First Name")
-    page.should have_field("Last Name")
-    page.should have_field(I18n.t('activerecord.attributes.spree/address.address1'))
-    page.should have_field("City")
-    page.should have_field("Country")
-    page.should have_field(I18n.t('activerecord.attributes.spree/address.zipcode'))
-    page.should have_field(I18n.t('activerecord.attributes.spree/address.phone'))
+    expect(page).to have_field("First Name")
+    expect(page).to have_field("Last Name")
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.address1'))
+    expect(page).to have_field("City")
+    expect(page).to have_field("Country")
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.zipcode'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.phone'))
   end
 
   def complete_checkout
