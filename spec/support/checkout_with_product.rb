@@ -21,7 +21,7 @@ shared_context "checkout with product" do
   def should_have_address_fields
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.address1'))
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.city'))
-    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.country'))
+    # expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.country'))
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.firstname'))
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.lastname'))
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.phone'))
@@ -38,16 +38,16 @@ shared_context "checkout with product" do
   end
 
   def fill_in_address(address, type = :bill)
-    fill_in "First Name", :with => address.firstname
-    fill_in "Last Name", :with => address.lastname
-    fill_in "Company", :with => address.company if Spree::Config[:company]
+    fill_in I18n.t('activerecord.attributes.spree/address.firstname'), :with => address.firstname
+    fill_in I18n.t('activerecord.attributes.spree/address.lastname'), :with => address.lastname
+    fill_in I18n.t('spree.company'), :with => address.company if Spree::Config[:company]
     fill_in I18n.t('activerecord.attributes.spree/address.address1'), :with => address.address1
     fill_in I18n.t('activerecord.attributes.spree/address.address2'), :with => address.address2
     select address.state.name, :from => "order_#{type}_address_attributes_state_id"
-    fill_in "City", :with => address.city
+    fill_in I18n.t('activerecord.attributes.spree/address.city'), :with => address.city
     fill_in I18n.t('activerecord.attributes.spree/address.zipcode'), :with => address.zipcode
     fill_in I18n.t('activerecord.attributes.spree/address.phone'), :with => address.phone
-    fill_in 'Alternative phone', :with => address.alternative_phone if Spree::Config[:alternative_billing_phone]
+    fill_in I19n.t('spree.alternative_phone'), :with => address.alternative_phone if Spree::Config[:alternative_billing_phone]
   end
 
   def expected_address_format(address)
