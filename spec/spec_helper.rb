@@ -87,6 +87,9 @@ RSpec.configure do |config|
   end
 
   config.before :each, js: true do
+    Capybara.ignore_hidden_elements = false # find all elements (hidden or visible)
+    Capybara.default_driver = :selenium
+
     DatabaseCleaner.strategy = :truncation, {
         :except => [
             'spree_countries',
@@ -101,10 +104,6 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.start
     reset_spree_preferences
-
-    Capybara.ignore_hidden_elements = false # find all elements (hidden or visible)
-
-    Capybara.default_driver = :selenium
 
     # not sure exactly what is happening here, but i think it takes an iteration for the country data to load
     Spree::Config[:default_country_id] = Spree::Country.find_by_iso3('USA').id if Spree::Country.count > 0
