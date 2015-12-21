@@ -1,22 +1,27 @@
 require 'spec_helper'
 
-describe "User editing addresses for his account" do
+describe "User editing addresses for his account", js: true do
   include_context "user with address"
 
   before(:each) do
     visit spree.root_path
     click_link "Login"
     sign_in!(user)
-    click_link "My Account"
+    wait_for_ajax
+    click_link('My Account')
   end
 
   it "should see list of addresses saved for account" do
     expect(page).to have_content("Addresses")
-    expect(page).to have_selector("#user_addresses > tbody > tr", count: user.addresses.count)
+    if (user.addresses.count > 0)
+      expect(page).to have_selector("table#user_addresses > tbody > tr", count: user.addresses.count)
+    else
+      expect(page).to have_content("No addresses on file")
+    end
   end
 
   it "should be able to add address" do
-    
+    expect(find_link('Add new address').visible?).to eq true
   end
 
   it "should be able to edit address", js: true do
