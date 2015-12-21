@@ -9,6 +9,7 @@ group :test do
   gem 'coffee-rails'
   gem 'pry-nav'
   gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 gemspec

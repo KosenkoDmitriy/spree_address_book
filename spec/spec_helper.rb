@@ -79,27 +79,23 @@ RSpec.configure do |config|
 
   # Ensure Suite is set to use transactions for speed.
   config.before :suite do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
 
-  # Before each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
+  config.before :each do
+    DatabaseCleaner.strategy = :transaction
+  end
 
-  config.before :each do |example|
-    if example.metadata[:js]
-      DatabaseCleaner.strategy = :truncation, {
-          :except => [
-              'spree_countries',
-              'spree_zones',
-              'spree_zone_members',
-              'spree_states',
-              'spree_roles'
-          ]
-      }
-    else
-      DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
-      DatabaseCleaner.start
-    end
+  config.before :each, js: true do
+    DatabaseCleaner.strategy = :truncation, {
+        :except => [
+            'spree_countries',
+            'spree_zones',
+            'spree_zone_members',
+            'spree_states',
+            'spree_roles'
+        ]
+    }
   end
 
   config.before :each do
@@ -107,6 +103,9 @@ RSpec.configure do |config|
     reset_spree_preferences
 
     Capybara.ignore_hidden_elements = false # find all elements (hidden or visible)
+
+    Capybara.default_driver = :selenium
+
     # not sure exactly what is happening here, but i think it takes an iteration for the country data to load
     Spree::Config[:default_country_id] = Spree::Country.find_by_iso3('USA').id if Spree::Country.count > 0
     Spree::Config[:address_requires_state]

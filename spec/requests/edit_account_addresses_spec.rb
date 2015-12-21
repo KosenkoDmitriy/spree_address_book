@@ -24,12 +24,12 @@ describe "User editing addresses for his account" do
     within("table#user_addresses tr:nth-child(1)") do
       click_link Spree.t(:edit)
     end
+
     expect(current_path).to eq spree.edit_address_path(address)
 
     new_street = Faker::Address.street_address
     fill_in :address_address1, with: new_street
     click_button "Update"
-
 
     expect(current_path).to eq spree.account_path
     expect(page).to have_content('Updated successfully')
@@ -45,6 +45,7 @@ describe "User editing addresses for his account" do
     within("table#user_addresses tr:nth-child(1)") do
       click_link Spree.t(:remove)
     end
+
     expect(current_path).to eq spree.account_path
 
     # flash message
