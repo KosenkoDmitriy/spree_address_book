@@ -19,13 +19,14 @@ shared_context "checkout with product" do
 
   private
   def should_have_address_fields
-    expect(page).to have_field("First Name")
-    expect(page).to have_field("Last Name")
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.address1'))
-    expect(page).to have_field("City")
-    expect(page).to have_field("Country")
-    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.zipcode'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.city'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.country'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.firstname'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.lastname'))
     expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.phone'))
+    # expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.state'))
+    expect(page).to have_field(I18n.t('activerecord.attributes.spree/address.zipcode'))
   end
 
   def complete_checkout
