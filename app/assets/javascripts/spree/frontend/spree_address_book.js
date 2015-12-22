@@ -1,4 +1,3 @@
-
 (function($) {
   $(document).ready(function(){
     if ($(".select_address").length > 0) {
